@@ -1,0 +1,82 @@
+:root {
+    --primary-color: #209BCD;
+    --secundary-color: #a65fd2;
+    --grey: #716D6D; 
+    --white: #fafafa;
+    --separation: 8px;
+      } 
+
+.header {
+      width: 100%;
+      position: absolute; left: 0; top: 0;
+      font-size: 50px;
+      text-align: center;
+      background-color: var(--primary-color);
+      color: #fafafa;
+      margin-top: var(--separation);
+      height: 100px;
+      }
+
+.footer { 
+    width: 100%;
+    position: fixed; left: 0; bottom: 0;
+    height: 70px;
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    margin-bottom: var(--separation);
+  }
+
+.frame {
+    margin-bottom: 1.5rem;
+  }
+
+.actions {
+    text-align: right;
+}
+
+.button {
+  color: white;
+  background-color: #209BCD;
+  border-color: #209BCD;
+}
+.error-message {
+    border: 1.5px solid #209BCD;
+    padding: calc(2 * var(--separacion-defecto));
+    background-color: var(--color-secundario)
+}
+
+.error-message li {
+    font-size: 0.8em;
+    color: #606c76;
+}
+
+.navbar {
+    margin-bottom: 10px;
+  }
+  
+.navbar ol {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #606c76;
+    color: white;
+  }
+  
+.navbar li {
+    float: left;
+    margin-bottom: 0;
+  }
+  
+.navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+.navbar li a:hover {
+    background-color: var(--primary-color);
+  }

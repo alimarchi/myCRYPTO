@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Transactions
+{% endblock %}
+
+{% block main %}
+<h1>Transactions</h1>     
+
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>From</th>
+            <th>Quantity</th>
+            <th>To</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if transactions == [] %}
+            {{ empty }}
+        {% else%}
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction[0] }}</td>
+                <td>{{ transaction[1] }}</td>
+                <td>{{ transaction[2] }}</td>
+                <td>{{ transaction[3] }}</td>
+                <td>{{ transaction[4] }}</td>
+                <td>{{ transaction[5] }}</td>
+                <td>{{ transaction[3] / transaction[5] }}</td>
+            </tr>
+            {% endfor %}
+        {% endif %}
+            
+    </tbody>
+</table>
+
+<div class="grid">
+    <a href="/status" role="button" >Investment</a>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <a href="/purchase" role="button" >+</a>
+
+</div>
+
+
+
+
+
+{% endblock %}

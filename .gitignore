@@ -3,3 +3,5 @@
 venv/
 .vscode/
 config.py
+prueba.db
+purchase2.html

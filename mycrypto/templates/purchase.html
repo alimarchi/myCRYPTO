@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Buy
+{% endblock %}
+
+{% block main %}
+    <h1>Buy, Sell and Exchange</h1>     
+
+    <form action="/purchase" method="post">
+      {{ myform.hidden_tag() }}
+        <div class="grid">
+            <label>
+            {{ myform.coin_from.label()}}
+            {{ myform.coin_from()}}
+            {% if myform.coin_from.errors %}
+            {% for error in myform.coin_from.errors %}
+            <p class="error">{{ error }}</p>
+            {% endfor %}
+            {% endif %}
+            </label>
+            <label>
+            {{ myform.coin_to.label()}}
+            {{ myform.coin_to()}}
+            {% if myform.coin_to.errors %}
+            {% for error in myform.coin_to.errors %}
+            <p class="error">{{ error }}</p>
+            {% endfor %}
+            {% endif %}
+            </label>
+        </div>
+
+        <div class="grid">
+            <label>
+            {{ myform.quantity.label() }}
+            {{ myform.quantity(type="number", step="0.0001") }}
+            {% if myform.quantity.errors %}
+            {% for error in myform.quantity.errors %}
+            <p class="error">{{ error }}</p>
+            {% endfor %}
+            {% endif %}
+            {{ myform.coin_from_hiddenfield() }}
+            {{ myform.coin_to_hiddenfield() }}
+            {{ myform.quantity_hiddenfield() }}
+            {{ myform.calculate() }}
+            </label>
+            <label>
+            {{ myform.quantity_to.label() }}
+            {% if myform.quantity_to.data != None %}
+              {{ myform.quantity_to.data }}
+            {% endif %}
+            {{ myform.quantity_to_hidden() }}
+          </label>
+        </div>
+
+
+        <div class="grid">
+          <label></label>
+          <label>
+          {{ myform.unit_price.label() }}
+          {% if myform.unit_price.data != None %}
+            {{ myform.unit_price.data }}
+          {% endif %}
+          </label>
+        </div>
+
+        <div class="grid">
+          
+          <label><a href="/" role="button">Cancel</a></label>
+          <label></label>
+          <label></label>
+          {{ myform.accept() }}
+        </div>
+
+        <div class="grid">
+          <label></label>
+          <label></label>
+          
+        </div>
+        
+        
+
+    </form>
+
+    
+
+
+{% endblock %}

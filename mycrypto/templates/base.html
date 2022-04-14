@@ -1,0 +1,50 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pico.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>myCRYPTO | {% block title %} {% endblock %}</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header">myCRYPTO</div>
+        </div>
+        
+    </header>
+    <div class="container">
+        <div class="navbar">
+            <ol>
+                <li><a href="/">Home</a></li>
+                <li><a href="/purchase">Buy and Sell</a></li>
+                <li><a href="/status">Your Investment</a></li>
+            </ol>
+        </div>
+    </div>
+    <section class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="error-message">
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block main %}{% endblock %}
+    </section>
+
+    </section>
+    <footer>
+        <div class="container">
+            <div class="footer">&copy; 2022 myCRYPTO, All rights reserved.</div>
+        </div>
+    </footer>
+</body>
+</html>
