@@ -29,31 +29,33 @@ class DataHandle:
         con.commit()
         con.close()
 
-    def prueba(self):
-        con = sqlite3.connect("data/prueba.db")
+    def get_euro_invested(self):
+        con = sqlite3.connect("data/all_transactions.db")
         cur = con.cursor()
 
         cur.execute("""
-                    SELECT DISTINCT moneda_to, SUM(cantidad_to)
-                    FROM Prueba
-                    GROUP BY moneda_to
+                    SELECT coin_from, SUM(quantity_from)
+                    FROM transactions
+                    WHERE coin_from = 'EUR'
+                    GROUP BY coin_from
                     """
         )
 
-        return cur.fetchall()
+        return cur.fetchone()
 
-    def prueba_2(self):
-        con = sqlite3.connect("data/prueba.db")
+    def get_euro_to(self):
+        con = sqlite3.connect("data/all_transactions.db")
         cur = con.cursor()
 
         cur.execute("""
-                    SELECT DISTINCT moneda_from, SUM(cantidad_from)
-                    FROM Prueba
-                    GROUP BY moneda_from
+                    SELECT coin_to, SUM(quantity_to)
+                    FROM transactions
+                    WHERE coin_to = 'EUR'
+                    GROUP BY coin_to
                     """
         )
 
-        return cur.fetchall()
+        return cur.fetchone()
 
     def get_wallet(self):
         con = sqlite3.connect("data/all_transactions.db")
