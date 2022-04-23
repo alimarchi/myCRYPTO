@@ -1,8 +1,9 @@
 import requests
 from mycrypto import URL_CONVERSION
 from config import API_KEY
-from mycrypto.errors import APIError
 
+class APIError(Exception):
+    pass 
 
 class CriptoConvert:
     def __init__(self, coin_from, coin_to, quantity):

@@ -27,6 +27,5 @@ class TransactionsForm(FlaskForm):
     unit_price = FloatField("Unit Price: ")
     
     calculate = SubmitField("Calculate")
-    #cancel = SubmitField("Cancel")
     accept = SubmitField("Confirm")
     

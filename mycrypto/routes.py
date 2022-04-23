@@ -5,7 +5,7 @@ from mycrypto.convert import CriptoConvert
 from mycrypto.models import DataHandle
 from datetime import date, datetime
 import sqlite3
-from mycrypto.errors import APIError
+from mycrypto.convert import APIError
 
 def available_coins_from(form):
     try:
@@ -58,10 +58,10 @@ def start():
     try:
         data_manager = DataHandle()
         mydata = data_manager.get_data()
-        return render_template ("transactions.html", transactions=mydata, empty="NO TRANSACTIONS")
+        return render_template ("transactions.html", transactions=mydata, empty="NO TRANSACTIONS", page="Home")
     except sqlite3.Error as sqlerror:
             flash("An internal error occurred. Please try again later.")
-            return render_template("transactions.html", transactions=[], empty="NO TRANSACTIONS")
+            return render_template("transactions.html", transactions=[], empty="NO TRANSACTIONS", page="Home")
 
 @app.route("/purchase", methods=['GET', 'POST'])
 def purchase():
@@ -69,7 +69,7 @@ def purchase():
     form.coin_from.choices = available_coins_from(form)
 
     if request.method == 'GET':
-        return render_template ("purchase.html", myform=form)
+        return render_template ("purchase.html", myform=form, page="Purchase")
 
     elif request.method == 'POST':
         if form.validate():
@@ -92,7 +92,7 @@ def purchase():
                     return render_template("purchase.html", myform=form)
                 except APIError:
                     flash("The service is currently unavailable. Please try again later.")
-                    return render_template ("purchase.html", myform=form)    
+                    return render_template ("purchase.html", myform=form, page="Purchase")    
 
             elif form.accept.data:
                 if form.quantity_to_hidden.data:
@@ -100,21 +100,21 @@ def purchase():
                         print("la seleccion es correcta")
                         value_quantity_to = form.quantity_to_hidden.data
                         today = str(date.today())
-                        current_time = str(datetime.now().time())
+                        current_time = str(datetime.now().isoformat(' ', 'seconds'))
                         data_manager = DataHandle()
                         data_manager.set_data((today, current_time, value1, value_quantity, value2, value_quantity_to))
                 
                         return redirect(url_for("start"))
                     else:
                         flash("You cannot edit your choices if the value of the transaction has already been calculated. Please try again.")
-                        return render_template("purchase.html", myform=form)
+                        return render_template("purchase.html", myform=form, page="Purchase")
                 else:
                     flash("Please select Calculate before confirming the transaction.")
-                    return render_template("purchase.html", myform=form)
+                    return render_template("purchase.html", myform=form, page="Purchase")
                 
         else:
             print("no pasa por validate")
-            return render_template("purchase.html", myform=form)
+            return render_template("purchase.html", myform=form, page="Purchase")
             
 
 @app.route("/status")
@@ -130,7 +130,7 @@ def status():
         print("El valor en euro de las criptos es: ", total_cripto_value)
         invested_capital = "{} €".format(invested_euro)
         current_investment = "{} €".format(current_value)
-        return render_template ("status.html", invested_euro=invested_capital, investment_value= current_investment)
+        return render_template ("status.html", invested_euro=invested_capital, investment_value= current_investment, page="Investment")
     except:
         flash("The service is currently unavailable, please try again later.")
-        return render_template ("status.html", invested_euro=0, investment_value=0)
+        return render_template ("status.html", invested_euro=0, investment_value=0, page="Investment")

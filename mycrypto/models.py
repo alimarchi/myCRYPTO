@@ -1,10 +1,11 @@
 import sqlite3
+from config import DB_ROUTE
 
 
 class DataHandle:
 
     def get_data(self):
-        con = sqlite3.connect("data/all_transactions.db")
+        con = sqlite3.connect(DB_ROUTE)
         cur = con.cursor()
 
         cur.execute("""
@@ -17,7 +18,7 @@ class DataHandle:
         return cur.fetchall()
 
     def set_data(sel, params):
-        con = sqlite3.connect("data/all_transactions.db")
+        con = sqlite3.connect(DB_ROUTE)
         cur = con.cursor()
 
         cur.execute("""
@@ -30,7 +31,7 @@ class DataHandle:
         con.close()
 
     def get_euro_invested(self):
-        con = sqlite3.connect("data/all_transactions.db")
+        con = sqlite3.connect(DB_ROUTE)
         cur = con.cursor()
 
         cur.execute("""
@@ -44,7 +45,7 @@ class DataHandle:
         return cur.fetchone()
 
     def get_euro_to(self):
-        con = sqlite3.connect("data/all_transactions.db")
+        con = sqlite3.connect(DB_ROUTE)
         cur = con.cursor()
 
         cur.execute("""
@@ -58,7 +59,7 @@ class DataHandle:
         return cur.fetchone()
 
     def get_wallet(self):
-        con = sqlite3.connect("data/all_transactions.db")
+        con = sqlite3.connect(DB_ROUTE)
         cur = con.cursor()
 
         cur.execute("""

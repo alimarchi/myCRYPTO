@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/pico.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp">
     <title>myCRYPTO | {% block title %} {% endblock %}</title>
 </head>
 <body>
@@ -18,9 +18,21 @@
     <div class="container">
         <div class="navbar">
             <ol>
-                <li><a href="/">Home</a></li>
-                <li><a href="/purchase">Buy and Sell</a></li>
-                <li><a href="/status">Your Investment</a></li>
+                {% if page != "Home" %}
+                    <li><a href="/">Home</a></li>
+                {% else %}
+                <li><a>Home</a></li>
+                {% endif %}
+                {% if page != "Purchase" %}
+                    <li><a href="/purchase">Buy and Sell</a></li>
+                {% else %}
+                <li><a>Buy and Sell</a></li>
+                {% endif %}
+                {% if page != "Investment" %}
+                    <li><a href="/status">Your Investment</a></li>
+                {% else %}
+                <li><a>Your Investment</a></li>
+                {% endif %}
             </ol>
         </div>
     </div>

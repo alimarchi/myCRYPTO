@@ -42,7 +42,9 @@
             {{ myform.coin_from_hiddenfield() }}
             {{ myform.coin_to_hiddenfield() }}
             {{ myform.quantity_hiddenfield() }}
-            {{ myform.calculate() }}
+            
+            <button name="{{ myform.calculate.name }}" id= "{{ myform.calculate.name }}" value=" {{ myform.calculate.label.text }}"><span class="material-icons">calculate</span> </button>
+            
             </label>
             <label>
             {{ myform.quantity_to.label() }}
@@ -66,14 +68,14 @@
 
         <div class="grid">
           
-          <label><a href="/" role="button">Cancel</a></label>
           <label></label>
           <label></label>
-          {{ myform.accept() }}
+          <label></label>
+          <button name="{{ myform.accept.name }}" id= "{{ myform.accept.name }}" value=" {{ myform.accept.label.text }}"><span class="material-icons">check</span></button>
         </div>
 
         <div class="grid">
-          <label></label>
+          <label><a href="/" role="button"><span class="material-icons">close</span></a></label>
           <label></label>
           
         </div>

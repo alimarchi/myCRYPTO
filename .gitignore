@@ -5,3 +5,4 @@ venv/
 config.py
 prueba.db
 purchase2.html
+all_transactions.db
