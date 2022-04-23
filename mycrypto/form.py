@@ -6,7 +6,7 @@ from mycrypto.models import DataHandle
 
 def coin_validation(form, field):
     if field.data == form.coin_from.data:
-        raise ValidationError("Please select different coins")
+        raise ValidationError("Please select different currencies")
 
 class TransactionsForm(FlaskForm):
     coin_from = SelectField("From: ", validators=[DataRequired(message="Please select one option.")],

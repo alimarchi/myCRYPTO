@@ -14,10 +14,12 @@ class DataHandle:
                     ORDER BY date
                     """
         )
-
+        con.commit()
+    
         return cur.fetchall()
+        
 
-    def set_data(sel, params):
+    def set_data(self, params):
         con = sqlite3.connect(DB_ROUTE)
         cur = con.cursor()
 
@@ -41,7 +43,7 @@ class DataHandle:
                     GROUP BY coin_from
                     """
         )
-
+        con.commit()
         return cur.fetchone()
 
     def get_euro_to(self):
@@ -55,7 +57,7 @@ class DataHandle:
                     GROUP BY coin_to
                     """
         )
-
+        con.commit()
         return cur.fetchone()
 
     def get_wallet(self):
@@ -75,5 +77,5 @@ class DataHandle:
                     ON A.coin_to = B.coin_from
                     """
         )
-
+        con.commit()
         return cur.fetchall()

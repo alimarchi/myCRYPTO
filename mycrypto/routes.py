@@ -3,7 +3,8 @@ from mycrypto import app
 from mycrypto.form import TransactionsForm
 from mycrypto.convert import CriptoConvert
 from mycrypto.models import DataHandle
-from datetime import date, datetime
+from datetime import date
+from time import strftime
 import sqlite3
 from mycrypto.convert import APIError
 
@@ -15,7 +16,6 @@ def available_coins_from(form):
         for key in wallet:
             if wallet[key] > 0:
                 coins_selection.append(key)
-            print(key, wallet[key])
         
         return coins_selection
     
@@ -45,9 +45,7 @@ def cripto_value():
         total = 0 
         for cripto, value in wallet.items():
             api = CriptoConvert(cripto, euro, value)
-            #print("La cripto es", cripto, "se cambia por", euro, "la cantidad es", value, "y el total es", api.get_conversion())
             total += api.get_conversion()
-        
         return total
     except APIError:
         flash("The service is currently unavailable, please try again later.")
@@ -73,7 +71,6 @@ def purchase():
 
     elif request.method == 'POST':
         if form.validate():
-            print("pasa por validate")
             value1 = form.coin_from.data
             value2 = form.coin_to.data
             value_quantity = validate_quantity(form, form.coin_from.data, form.quantity.data)
@@ -97,10 +94,9 @@ def purchase():
             elif form.accept.data:
                 if form.quantity_to_hidden.data:
                     if form.coin_from_hiddenfield.data == value1 and form.coin_to_hiddenfield.data == value2 and form.quantity_hiddenfield.data == str(value_quantity):
-                        print("la seleccion es correcta")
                         value_quantity_to = form.quantity_to_hidden.data
                         today = str(date.today())
-                        current_time = str(datetime.now().isoformat(' ', 'seconds'))
+                        current_time= strftime("%H:%M:%S")
                         data_manager = DataHandle()
                         data_manager.set_data((today, current_time, value1, value_quantity, value2, value_quantity_to))
                 
@@ -113,7 +109,6 @@ def purchase():
                     return render_template("purchase.html", myform=form, page="Purchase")
                 
         else:
-            print("no pasa por validate")
             return render_template("purchase.html", myform=form, page="Purchase")
             
 
@@ -121,13 +116,17 @@ def purchase():
 def status():
     try:
         data_manager = DataHandle()
-        invested_euro = data_manager.get_euro_invested()[1]
-        euro_balance = data_manager.get_euro_to()[1] - data_manager.get_euro_invested()[1]
+        if data_manager.get_euro_invested() == None:
+            invested_euro= 0
+            flash("You have not invested any euro yet.")
+        else:
+            invested_euro = data_manager.get_euro_invested()[1]
+        if data_manager.get_euro_to() == None:
+            euro_balance = 0 - invested_euro
+        else:
+            euro_balance = data_manager.get_euro_to()[1] - data_manager.get_euro_invested()[1]
         total_cripto_value = cripto_value()
         current_value = invested_euro + euro_balance + total_cripto_value
-        print(euro_balance) 
-        print(data_manager.get_euro_to()[1])
-        print("El valor en euro de las criptos es: ", total_cripto_value)
         invested_capital = "{} €".format(invested_euro)
         current_investment = "{} €".format(current_value)
         return render_template ("status.html", invested_euro=invested_capital, investment_value= current_investment, page="Investment")
