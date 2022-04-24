@@ -29,7 +29,7 @@ CREATE TABLE "transactions" (
 	PRIMARY KEY("id" AUTOINCREMENT)
 )
 ```
-### Save your database file inside the "data" folder.
+### Create a new folder called "data" and save your database file inside.
 ### Rename the file .env_template to .env
 ```
 FLASK_APP=run.py
