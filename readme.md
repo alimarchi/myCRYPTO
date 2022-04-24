@@ -12,7 +12,7 @@
 ```
 . venv/bin/activate
 ```
-### Installed all the requirements
+### Install all the requirements
 ```
 pip install -r requirements.txt
 ```
